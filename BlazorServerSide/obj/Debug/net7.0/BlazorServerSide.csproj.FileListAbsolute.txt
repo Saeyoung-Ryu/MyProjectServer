@@ -75,3 +75,4 @@
 /Users/saeyoungryu/Project/BlazorServerSide/BlazorServerSide/obj/Debug/net7.0/BlazorServerSide.genruntimeconfig.cache
 /Users/saeyoungryu/Project/BlazorServerSide/BlazorServerSide/obj/Debug/net7.0/ref/BlazorServerSide.dll
 /Users/saeyoungryu/Project/BlazorServerSide/BlazorServerSide/bin/Debug/net7.0/NLog.dll
+/Users/saeyoungryu/Project/BlazorServerSide/BlazorServerSide/bin/Debug/net7.0/MyProjectInfo.config

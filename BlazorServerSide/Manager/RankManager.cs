@@ -16,7 +16,7 @@ namespace Manager
         public static List<RankInfo> jgRankList = new List<RankInfo>();
         public static List<RankInfo> topRankList = new List<RankInfo>();
 
-        public static async Task SetOverallRankInfoListAsync()
+        public static async Task SetTotalRankInfoListAsync()
         {
         var infos = await AccountDB.GetAllUserWinRateHistory();
 
@@ -153,8 +153,7 @@ namespace Manager
                     await SetUserWinLose(user.Seq, WinLoseType.Lose, LineType.Support);
             }
         }
-
-        private static void SetWRListInMemory(int seq, WinLoseType winLoseType)
+        private static void SetWrListInMemory(int seq, WinLoseType winLoseType)
         {
             foreach (var rankInfo in totalRankList)
             {
@@ -169,7 +168,6 @@ namespace Manager
                 }
             }
         }
-
         private static async Task SetUserWinLose(int seq, WinLoseType winLoseType, LineType lineType)
         {
             var userWinRateHistoryList = await AccountDB.GetUserWinRateHistoryAsync(seq);
@@ -178,7 +176,7 @@ namespace Manager
             if(userWinRateHistory == null)
                 return;
                     
-            SetWRListInMemory(seq, winLoseType);
+            SetWrListInMemory(seq, winLoseType);
                     
             if(winLoseType == WinLoseType.Win)
                 userWinRateHistory.WinCount++;
@@ -187,7 +185,6 @@ namespace Manager
             
             await AccountDB.SetUserWinRateHistoryAsync(userWinRateHistory);
         }
-        
         public static async Task SetUserWinLoseCount(string nickName, int seq, int winCount, int loseCount, LineType lineType)
         {
             List<RankInfo> rankInfos = new List<RankInfo>();

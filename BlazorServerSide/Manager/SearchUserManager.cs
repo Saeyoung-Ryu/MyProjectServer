@@ -106,7 +106,7 @@ public class SearchUserManager
 
     public static async Task<(string NickName, Dictionary<WinLoseType, int> WinLoseDictionary)> GetSoloRankBattleWinRateAsync(string apiKey, string puuid, int listGameCount, DateTime battleStartTime) // battleStartTime 은 시작버튼을 누른 시간! 데이터베이스에 따로 저장해두기
     {
-        var matchIdList = await MatchManager.GetMatchIdListAsync(apiKey, puuid, 20, QueueType.Solo); // 100개 최대로 고정시키기
+        var matchIdList = await MatchManager.GetMatchIdListAsync(apiKey, puuid, 100, QueueType.Solo); // 100개 최대로 고정시키기
         
         Queue<MatchDto> matchDtoQueue = new Queue<MatchDto>();
         string nickName = String.Empty;

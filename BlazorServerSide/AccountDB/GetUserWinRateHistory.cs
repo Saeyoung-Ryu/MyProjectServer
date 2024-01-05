@@ -1,10 +1,8 @@
 using System.Data;
-using BlazorApp3.Common;
 using Common;
 using Enum;
 using Type;
 using Dapper;
-using Enum;
 using MySqlConnector;
 
 namespace BlazorApp3.Common

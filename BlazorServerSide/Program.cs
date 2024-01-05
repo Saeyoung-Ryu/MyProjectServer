@@ -1,9 +1,5 @@
 using Manager;
-using BlazorServerSide;
 using Common;
-using Manager;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 
 namespace YourNamespace
 {
@@ -14,9 +10,9 @@ namespace YourNamespace
         public static async Task Main(string[] args)
         {
             {
-                // DB Setting
+                // Rank Setting
                 MyProjectInfoConfig.Refresh();
-                await RankManager.SetOverallRankInfoListAsync();
+                await RankManager.SetTotalRankInfoListAsync();
                 await RankManager.SetOtherLaneRanks();
             }
 
