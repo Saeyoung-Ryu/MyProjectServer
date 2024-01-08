@@ -64,11 +64,19 @@ public class UserController : ControllerBase
     [HttpPost("SetUserNickName")]
     public async Task<IActionResult> SetUserNickNameAsync([FromBody] SetUserNickNameReq request)
     {
-        await AccountDB.UpdateUserInfoAsync(request.NickName, request.Seq);
+        bool isDuplicatedNickName = true;
         
-        var response = new GetUserRes()
+        var user = await AccountDB.GetUserInfoAsync(request.NickName);
+
+        if (user == null)
         {
-            
+            await AccountDB.UpdateUserInfoAsync(request.NickName, request.Seq);
+            isDuplicatedNickName = false;
+        }
+        
+        var response = new SetUserNickNameRes()
+        {
+            IsDuplicatedNickName = isDuplicatedNickName
         };
 
         return Ok(response);
