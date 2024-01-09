@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 29/11/2023 14:12:03
+ Date: 09/01/2024 18:42:24
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `dumpLog` (
   `tableName` varchar(60) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=698 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=797 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Table structure for major
@@ -58,6 +58,15 @@ CREATE TABLE `tblLogMatchHistory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
+-- Table structure for tblPenaltyRoulette
+-- ----------------------------
+DROP TABLE IF EXISTS `tblPenaltyRoulette`;
+CREATE TABLE `tblPenaltyRoulette` (
+  `basicId` int NOT NULL,
+  `contentName_KR` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
 -- Table structure for tblRankHistory
 -- ----------------------------
 DROP TABLE IF EXISTS `tblRankHistory`;
@@ -69,7 +78,7 @@ CREATE TABLE `tblRankHistory` (
   `winRate` decimal(11,2) NOT NULL,
   PRIMARY KEY (`seq`),
   UNIQUE KEY `userNameTimeIdx` (`userSeq`,`time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for tblUserInfo
@@ -81,7 +90,7 @@ CREATE TABLE `tblUserInfo` (
   `createTime` datetime NOT NULL,
   `linkedMail` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`seq`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for tblUserWinnrateHistory
@@ -92,7 +101,7 @@ CREATE TABLE `tblUserWinnrateHistory` (
   `lineType` int NOT NULL,
   `winCount` int NOT NULL,
   `loseCount` int NOT NULL,
-  UNIQUE KEY `IdxUserSeqLinType` (`userSeq`,`lineType`) USING BTREE
+  UNIQUE KEY `IdxUserSeqLineTypeClubSeq` (`userSeq`,`lineType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
@@ -192,7 +201,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `spInsertUserWinnrateHistory`;
 delimiter ;;
-CREATE PROCEDURE `spInsertUserWinnrateHistory`(_userSeq int, _lineType int, _winCount int, _loseCount int)
+CREATE PROCEDURE `spInsertUserWinnrateHistory`(IN _userSeq int, IN _lineType int, IN _winCount int, IN _loseCount int)
 BEGIN
     INSERT INTO tblUserWinnrateHistory (userSeq, lineType, winCount, loseCount)
     VALUES (_userSeq, _lineType, _winCount, _loseCount)

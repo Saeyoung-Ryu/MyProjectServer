@@ -12,8 +12,7 @@ namespace YourNamespace
             {
                 // Rank Setting
                 MyProjectInfoConfig.Refresh();
-                await RankManager.SetTotalRankInfoListAsync();
-                await RankManager.SetOtherLaneRanks();
+                await RankManager.InitRankAsync();
             }
 
             log.Info("Server Has Started");

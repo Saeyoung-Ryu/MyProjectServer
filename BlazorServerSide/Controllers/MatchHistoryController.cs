@@ -2,6 +2,7 @@ using BlazorApp3.Common;
 using Manager;
 using Microsoft.AspNetCore.Mvc;
 using Protocol;
+using Type;
 
 namespace BlazorServerSide.Controllers;
 
@@ -27,6 +28,7 @@ public class MatchHistoryController : ControllerBase
         if (request.WinTeam == 1)
         {
             request.LogMatchHistory.Team1Win = 1;
+            request.LogMatchHistory.Team2Win = -1;
             await LogDB.SetLogMatchHistoryAsync(request.LogMatchHistory);
 
             await RankManager.SetUserWinAsync(request.LogMatchHistory.Team1Data);
@@ -35,11 +37,14 @@ public class MatchHistoryController : ControllerBase
         else if (request.WinTeam == 2)
         {
             request.LogMatchHistory.Team2Win = 1;
+            request.LogMatchHistory.Team1Win = -1;
             await LogDB.SetLogMatchHistoryAsync(request.LogMatchHistory);
 
             await RankManager.SetUserWinAsync(request.LogMatchHistory.Team2Data);
             await RankManager.SetUserLoseAsync(request.LogMatchHistory.Team1Data);
         }
+
+        await RankManager.InitRankAsync();
         
         var response = new SetTeamWinRes()
         {

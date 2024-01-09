@@ -14,7 +14,7 @@ namespace Manager
 
             foreach (LineType lineType in System.Enum.GetValues(typeof(LineType)))
             {
-                if(lineType == LineType.Random)
+                if(lineType == LineType.Random || lineType == LineType.None)
                     continue;
                 
                 UserWinRateHistory userWinRateHistory = new UserWinRateHistory()

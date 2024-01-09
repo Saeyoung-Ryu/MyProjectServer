@@ -16,7 +16,19 @@ namespace Manager
         public static List<RankInfo> jgRankList = new List<RankInfo>();
         public static List<RankInfo> topRankList = new List<RankInfo>();
 
-        public static async Task SetTotalRankInfoListAsync()
+        public static async Task InitRankAsync()
+        {
+            totalRankList = new List<RankInfo>();
+            adcRankList = new List<RankInfo>();
+            supRankList = new List<RankInfo>();
+            midRankList = new List<RankInfo>();
+            jgRankList = new List<RankInfo>();
+            topRankList = new List<RankInfo>();
+        
+            await SetTotalRankInfoListAsync();
+            await SetOtherLaneRanks();
+        }
+        private static async Task SetTotalRankInfoListAsync()
         {
         var infos = await AccountDB.GetAllUserWinRateHistory();
 
@@ -62,7 +74,7 @@ namespace Manager
 
         totalRankList = totalRankList.OrderByDescending(e => e.OverallScore).ToList();
     }
-        public static async Task SetOtherLaneRanks()
+        private static async Task SetOtherLaneRanks()
     {
         var supList = (await AccountDB.GetAllUserWinRateHistoryByLine(LineType.Support)).OrderByDescending(e => e.GetOverAllScore()).ToList();
         var adcList = (await AccountDB.GetAllUserWinRateHistoryByLine(LineType.Adc)).OrderByDescending(e => e.GetOverAllScore()).ToList();

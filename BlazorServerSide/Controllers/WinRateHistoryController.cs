@@ -3,6 +3,7 @@ using Enum;
 using Manager;
 using Microsoft.AspNetCore.Mvc;
 using Protocol;
+using Type;
 
 namespace BlazorServerSide.Controllers;
 
@@ -30,9 +31,11 @@ public class WinRateHistoryController : ControllerBase
         {
             await AccountDB.SetUserWinRateHistoryAsync(item);
             
-            if(item.WinCount > 0 || item.LoseCount > 0)
-                await RankManager.SetUserWinLoseCount(request.NickName, request.Seq, item.WinCount, item.LoseCount, (LineType) item.LineType);
+            /*if(item.WinCount > 0 || item.LoseCount > 0)
+                await RankManager.SetUserWinLoseCount(request.NickName, request.Seq, item.WinCount, item.LoseCount, (LineType) item.LineType);*/
         }
+        
+        await RankManager.InitRankAsync();
         
         var response = new GetUserWinRateHistoryRes
         {

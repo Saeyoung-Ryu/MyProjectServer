@@ -14,7 +14,6 @@ public class SetTeamController : ControllerBase
     public async Task<IActionResult> SetTeamAsync([FromBody] SetTeamReq request)
     {
         await LogDB.InsertLogMatchHistoryAsync(request.LogMatchHistory);
-        await RankManager.SetUserWinAsync(request.LogMatchHistory.Team1Data);
         
         var response = new SetTeamRes
         {
